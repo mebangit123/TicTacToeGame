@@ -1,7 +1,12 @@
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
 public class TicTacToe {
+	
+	static ArrayList<Integer> playerPositions = new ArrayList<Integer>();
+	static ArrayList<Integer> cpuPositions = new ArrayList<Integer>();
+	
 	public static void main(String[] args) {
 		System.out.println("Tic Tac Toe Game");
 		
@@ -12,18 +17,26 @@ public class TicTacToe {
 							  {' ', '|', ' ', '|', ' '}};
 						
 		printBoard(gameBoard);
-		
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter your Placement: (1-9)");
-		int playerPos = sc.nextInt();
-		sc.close();
-		
-		placePiece(gameBoard,playerPos,"player");
-		
-		Random rand = new Random();
-		int cpuPos = rand.nextInt(9) +1;
-		placePiece(gameBoard,cpuPos,"cpu");
-		printBoard(gameBoard);
+		while(true) {
+			Scanner sc = new Scanner(System.in);
+			System.out.println("Enter your Placement: (1-9)");
+			int playerPos = sc.nextInt();
+			while(playerPositions.contains(playerPos) || cpuPositions.contains(playerPos)) {
+				System.out.println("Position taken! Enter a correct Position");
+				playerPos = sc.nextInt();
+			}
+			
+			placePiece(gameBoard,playerPos,"player");
+			printBoard(gameBoard);
+			
+			Random rand = new Random();
+			int cpuPos = rand.nextInt(9) +1;
+			while(playerPositions.contains(cpuPos) || cpuPositions.contains(cpuPos)) {
+				cpuPos = sc.nextInt();
+			}
+			placePiece(gameBoard,cpuPos,"cpu");
+			printBoard(gameBoard);	
+		}
 		
 	}
 	public static void printBoard(char[][] gameBoard) {
@@ -40,15 +53,18 @@ public class TicTacToe {
 		
 		if(user.equals("player")) {
 			symbol = 'X';
+			playerPositions.add(pos);
 		}
 		else if(user.equals("cpu")) {
 			symbol = 'O';
+			cpuPositions.add(pos);
 		}
 		
 		switch(pos){
 			case 1:
 				gameBoard[0][0] = symbol;
-				break;
+				
+				break;	
 			case 2:
 				gameBoard[0][2] = symbol;
 				break;
