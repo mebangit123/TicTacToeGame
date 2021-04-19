@@ -2,21 +2,22 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class TicTacToe {
-
 	public static void main(String[] args) {
 		System.out.println("Tic Tac Toe Game");
 		
 		char[][] gameBoard = {{' ', '|', ' ', '|', ' '},
-				{'-', '+', '-', '+', '-'},
-				{' ', '|', ' ', '|', ' '},
-				{'-', '+', '-', '+', '-'},
-				{' ', '|', ' ', '|', ' '}};
-		
+							  {'-', '+', '-', '+', '-'},
+							  {' ', '|', ' ', '|', ' '},
+							  {'-', '+', '-', '+', '-'},
+							  {' ', '|', ' ', '|', ' '}};
+						
 		printBoard(gameBoard);
+		
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter your Placement: (1-9)");
 		int playerPos = sc.nextInt();
 		sc.close();
+		
 		placePiece(gameBoard,playerPos,"player");
 		
 		Random rand = new Random();
